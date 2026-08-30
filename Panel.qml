@@ -51,10 +51,12 @@ Panel {
 
   Process {
     id: stateProc
+    running: false
     stdout: StdioCollector {
+      waitForEnd: true
       onStreamFinished: {
         try {
-          var data = JSON.parse(value)
+          var data = JSON.parse(text)
           root.level = data.level || 1
           root.currentXp = data.current_xp || 0
           root.maxXp = data.max_xp || 100
@@ -72,6 +74,7 @@ Panel {
 
   Process {
     id: actionProc
+    running: false
     onExited: root.refresh()
   }
 
