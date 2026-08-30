@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "id": "harshith.devquest",
+  "name": "DevQuest",
+  "version": "1.0.0",
+  "author": "Harshith Nadig",
+  "license": "MIT",
+  "description": "Retro 8-bit RPG gamification for developers: earn XP, level up, complete daily coding quests, and track git streaks right from your Omarchy bar.",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "BarWidget.qml"
+  },
+  "barWidget": {
+    "displayName": "DevQuest RPG",
+    "description": "8-bit companion and RPG quest system tracking daily git activity and coding focus.",
+    "category": "Productivity",
+    "aliases": [
+      "devquest",
+      "rpg",
+      "gamify",
+      "gitquest"
+    ],
+    "allowMultiple": false,
+    "defaultSection": "right",
+    "defaults": {
+      "showLevelInBar": true,
+      "soundEffects": false
+    },
+    "schema": [
+      {
+        "key": "showLevelInBar",
+        "type": "boolean",
+        "label": "Show Level Badge in Bar",
+        "defaultValue": true,
+        "description": "Displays 'Lv.X' badge next to the 8-bit hero in the bar."
+      },
+      {
+        "key": "soundEffects",
+        "type": "boolean",
+        "label": "8-bit Level-Up Sound",
+        "defaultValue": false,
+        "description": "Play an 8-bit chime upon level up."
+      }
+    ]
+  }
+}
