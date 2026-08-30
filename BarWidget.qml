@@ -6,11 +6,6 @@ BarWidget {
   id: root
   moduleName: "harshith.devquest"
 
-  readonly property string scriptPath:
-    Qt.resolvedUrl("devquest-engine.sh").toString().replace(/^file:\/\//, "")
-
-  readonly property bool opened: panelLoader.item ? panelLoader.item.opened === true : false
-
   function injectPanel() {
     var target = panelLoader.item
     if (!target) return
@@ -45,8 +40,7 @@ BarWidget {
     id: button
     anchors.fill: parent
     bar: root.bar
-    text: panelLoader.item ? ("󰊴 Lv." + panelLoader.item.level) : "󰊴 Lv.2"
-    slotSize: Style.bar.statusSlot
+    text: "󰊴"
     active: root.opened
     useActiveColor: true
     activeColor: Color.accent
