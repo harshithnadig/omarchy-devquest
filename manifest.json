@@ -3,7 +3,7 @@
   "id": "harshith.devquest",
   "name": "DevQuest",
   "version": "1.0.0",
-  "author": "Harshith Nadig",
+  "author": "DevQuest Contributors",
   "license": "MIT",
   "description": "Retro 8-bit RPG gamification for developers: earn XP, level up, complete daily coding quests, and track git streaks right from your Omarchy bar.",
   "kinds": [
