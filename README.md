@@ -28,7 +28,9 @@ Stores progress in ~/.local/state/omarchy/devquest.json and scans Git repositori
 
 ### Current limitations
 
-Prototype: commits refresh on date rollover, rather than continuously; the sprint button grants progress immediately without timing 25 minutes; the PR quest starts with sample progress.
+Prototype: commit progress is derived from local Git repositories under
+`~/Work`; the sprint quest now requires an actual 25-minute timer, and the PR
+quest is intentionally manual because the plugin does not query GitHub.
 
 Repository structure and documentation were reviewed for resubmission. This is not a fresh end-to-end runtime test or security audit.
 

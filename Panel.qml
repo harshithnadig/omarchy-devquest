@@ -19,19 +19,21 @@ Panel {
   readonly property string scriptPath:
     Qt.resolvedUrl("devquest-engine.sh").toString().replace(/^file:\/\//, "")
 
-  property int level: 2
-  property int currentXp: 100
-  property int maxXp: 200
+  property int level: 1
+  property int currentXp: 0
+  property int maxXp: 100
   property int streak: 1
   property int mana: 100
   property int totalCommits: 0
-  property int questsCompleted: 1
+  property int questsCompleted: 0
+  property bool sprintActive: false
+  property int sprintRemainingSeconds: 0
   property string title: "Novice Coder"
   property string avatarGlyph: "󰊴"
   property var quests: [
     { id: "commit_quest", title: "Daily Forge", desc: "Make 3 commits today", progress: 0, goal: 3, xp: 100, claimed: false },
     { id: "sprint_quest", title: "Deep Work Sprint", desc: "Complete a 25m focus sprint", progress: 0, goal: 1, xp: 75, claimed: false },
-    { id: "pr_quest", title: "Open Source Hero", desc: "Submit or review a PR", progress: 1, goal: 1, xp: 200, claimed: true }
+    { id: "pr_quest", title: "Open Source Hero", desc: "Submit or review a PR", progress: 0, goal: 1, xp: 200, claimed: false }
   ]
 
   readonly property color fg: bar ? bar.foreground : Color.popups.text
@@ -90,6 +92,8 @@ Panel {
           if (data.title) root.title = data.title
           if (data.quests) root.quests = data.quests
           if (data.quests_completed !== undefined) root.questsCompleted = data.quests_completed
+          if (data.sprint_active !== undefined) root.sprintActive = data.sprint_active === true
+          if (data.sprint_remaining_seconds !== undefined) root.sprintRemainingSeconds = data.sprint_remaining_seconds
         } catch(e) {}
       }
     }
@@ -99,6 +103,13 @@ Panel {
     id: actionProc
     running: false
     onExited: root.refresh()
+  }
+
+  Timer {
+    interval: 30000
+    running: root.opened && root.sprintActive
+    repeat: true
+    onTriggered: root.refresh()
   }
 
   KeyboardPanel {
@@ -415,7 +426,9 @@ Panel {
               Text { textFormat: Text.PlainText; text: "⚡"; font.pixelSize: Style.font.body }
               Text {
                 textFormat: Text.PlainText
-                text: "Focus Sprint (+35 XP)"
+                text: root.sprintActive
+                  ? "Sprint active · " + Math.ceil(root.sprintRemainingSeconds / 60) + "m left"
+                  : "Start 25m Sprint (+35 XP)"
                 font.family: root.fontFam
                 font.pixelSize: Style.font.body
                 font.bold: true
