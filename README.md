@@ -29,8 +29,7 @@ Stores progress in ~/.local/state/omarchy/devquest.json and scans Git repositori
 ### Current limitations
 
 Prototype: commit progress is derived from local Git repositories under
-`~/Work`; the sprint quest now requires an actual 25-minute timer, and the PR
-quest is intentionally manual because the plugin does not query GitHub.
+`~/Work`; matching commit hashes across cloned and backup checkouts count once. The sprint quest requires an actual 25-minute timer, and the PR quest is intentionally manual because the plugin does not query GitHub.
 
 Repository structure and documentation were reviewed for resubmission. This is not a fresh end-to-end runtime test or security audit.
 

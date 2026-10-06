@@ -101,17 +101,17 @@ migrate_state() {
 migrate_state
 
 count_commits_today() {
-  local total=0
-  local git_dir repo repo_author count
-  while IFS= read -r git_dir; do
-    repo=${git_dir%/.git}
-    repo_author=$(git -C "$repo" config user.name 2>/dev/null || true)
-    [[ -n "$repo_author" ]] || repo_author=$(git config --global user.name 2>/dev/null || true)
-    [[ -n "$repo_author" ]] || continue
-    count=$(git -C "$repo" log --since="midnight" --author="$repo_author" --format='%H' 2>/dev/null | wc -l)
-    total=$((total + count))
-  done < <(find "$HOME/Work" -maxdepth 3 -type d -name .git -print 2>/dev/null)
-  echo "$total"
+  local git_dir repo repo_author
+  {
+    while IFS= read -r git_dir; do
+      repo=${git_dir%/.git}
+      repo_author=$(git -C "$repo" config user.name 2>/dev/null || true)
+      [[ -n "$repo_author" ]] || repo_author=$(git config --global user.name 2>/dev/null || true)
+      [[ -n "$repo_author" ]] || continue
+      git -C "$repo" log --since="midnight" --author="$repo_author" --format='%H' 2>/dev/null || true
+    done < <(find "$HOME/Work" -maxdepth 3 -type d -name .git -print 2>/dev/null)
+  } | sort -u | wc -l | tr -d '[:space:]'
+  printf '\n'
 }
 
 refresh_commit_progress() {
